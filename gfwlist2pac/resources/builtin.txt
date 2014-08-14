@@ -1,0 +1,6 @@
+google.com
+google.co.jp
+google.co.hk
+googleapis.com
+github.com
+wikipedia.org
