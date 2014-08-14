@@ -12,7 +12,7 @@ import copy
 __all__ = ['main']
 
 
-gfwlist_url = 'https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt'
+gfwlist_url = 'https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt' # ban with gfw, you need proxy to access
 
 
 def parse_args():
@@ -149,12 +149,12 @@ def main():
     args = parse_args()
     user_rule = None
     if (args.input):
-        with open(args.input, 'rb') as f:
+        with open(args.input, 'r') as f:
             content = f.read()
     else:
         print 'Downloading gfwlist from %s' % gfwlist_url
         content = urllib2.urlopen(gfwlist_url, timeout=10).read()
-        with open('gfwlist.txt', 'wb') as f:
+        with open('gfwlist.txt', 'w') as f:
             f.write(content)
     if args.user_rule:
         userrule_parts = urlparse.urlsplit(args.user_rule)
@@ -171,7 +171,7 @@ def main():
     domains = parse_gfwlist(content, user_rule)
     domains = reduce_domains(domains)
     pac_content = generate_pac(domains, args.proxy)
-    with open(args.output, 'wb') as f:
+    with open(args.output, 'w') as f:
         f.write(pac_content)
 
 
